@@ -195,7 +195,7 @@ NSString *const LRImageManagerSizeUserInfoKey = @"LRImageManagerSizeUserInfoKey"
                 
                 if (self.showNetworkActivityIndicator && [self.ongoingOperations count] == 0)
                 {
-                    if (RUNNING_IN_APP_EXTENSION) {
+                    if (! RUNNING_IN_APP_EXTENSION) {
                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                     }
                 }
@@ -212,7 +212,7 @@ NSString *const LRImageManagerSizeUserInfoKey = @"LRImageManagerSizeUserInfoKey"
         
         if (self.showNetworkActivityIndicator)
         {
-            if (RUNNING_IN_APP_EXTENSION) {
+            if (! RUNNING_IN_APP_EXTENSION) {
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             }
         }
