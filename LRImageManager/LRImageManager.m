@@ -37,6 +37,8 @@ NSString *const LRImageManagerSizeUserInfoKey = @"LRImageManagerSizeUserInfoKey"
 #error "LRImageManager requires blocks."
 #endif
 
+#define RUNNING_IN_APP_EXTENSION ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0f && [[[NSBundle mainBundle] executablePath] containsString:@".appex/"])
+
 @interface LRImageManager ()
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
@@ -193,7 +195,9 @@ NSString *const LRImageManagerSizeUserInfoKey = @"LRImageManagerSizeUserInfoKey"
                 
                 if (self.showNetworkActivityIndicator && [self.ongoingOperations count] == 0)
                 {
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                    if (RUNNING_IN_APP_EXTENSION) {
+                        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                    }
                 }
             });
         }];
@@ -208,7 +212,9 @@ NSString *const LRImageManagerSizeUserInfoKey = @"LRImageManagerSizeUserInfoKey"
         
         if (self.showNetworkActivityIndicator)
         {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            if (RUNNING_IN_APP_EXTENSION) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            }
         }
     }
 }
